@@ -53,7 +53,7 @@ app.post("/location", function (req, res) {
   console.log("res: ", res);
   const id = getId();
   var params = {
-    TableName = process.env.STORAGE_DYNAMODB_NAME,
+    TableName : process.env.STORAGE_DYNAMODB_NAME,
     Item: {
       id: id,
       iss_position: 
