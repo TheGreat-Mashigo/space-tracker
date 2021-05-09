@@ -9,6 +9,9 @@ See the License for the specific language governing permissions and limitations 
 var express = require("express");
 var bodyParser = require("body-parser");
 var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
+const { v4: uuidv4 } = require('uuid')
+const AWS = require('aws-sdk')
+const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 // declare a new express app
 var app = express();
@@ -18,44 +21,75 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 // Enable CORS for all methods
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Headers", "*", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-const AWS = require('aws-sdk')
-const docClient = new AWS.DynamoDB.DocumentClient();
 
 function getId(){
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
 }
 
-app.get("/location", function (req, res) {
 
-  // let locations = await Article.findAll().exec();
-  var params = {
-    TableName: table,
-};
-
-docClient.get(params, function(err, data) {
-    if (err) {
-        console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+app.get("/location", function (request, response) {
+  let params = {
+    TableName: tableName,
+    limit: 100
+  }
+  dynamodb.scan(params, (error, result) => {
+    if (error) {
+      response.json({ statusCode: 500, error: error.message });
     } else {
-        console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+      response.json({ statusCode: 200, url: request.url, body: JSON.stringify(result.Items) })
     }
-});
+  });
 });
 
 
-app.post("/location", function (req, res) {
-  // Add your code here
-  const query = req.query;
-  console.log("req: ", query);
-  console.log("res: ", res);
-  const id = getId();
-  var params = {
-    TableName : process.env.STORAGE_DYNAMODB_NAME,
+// app.post("/location", function (req, res) {
+//   // Add your code here
+//   const query = req.query;
+//   console.log("req: ", query);
+//   console.log("res: ", res);
+//   const id = getId();
+//   var params = {
+//     TableName : process.env.STORAGE_DYNAMODB_NAME,
+//     Item: {
+//       id: id,
+//       iss_position: 
+//         { 
+//           "longitude": query.iss_position.longitude, 
+//           "latitude": query.iss_position.latitude
+//         }, 	
+//       timestamp: query.time, 
+//       message: query.message
+//     }
+//   }
+//   console.error("############Params JSON:", JSON.stringify(params, null, 2));
+//   dynamodb.put(params, function(err, data) {
+//     if(err) {
+//       console.error("Unable to post item. Error JSON:", JSON.stringify(err, null, 2));
+//       res.json({err});
+//     }else{
+//       res.json({success: 'Coordinates updated', url: req.url})
+//     }
+//   });
+//   // res.json({
+//   //   event: req.apiGateway.event, // to view all event data
+//   //   query: query
+//   // });
+//   // res.json({ success: "get call succeed!", url: req.url });
+// });
+
+app.post("/location", function (request, response) {
+  const timestamp = new Date().toISOString();
+  let params = {
+    TableName: tableName || process.env.STORAGE_DYNAMODB_NAME,
     Item: {
-      id: id,
+      ...request.body,
+      id: uuidv4(),               // auto-generate id
+      createdAt: timestamp,
+      updatedAt: timestamp,
       iss_position: 
         { 
           "longitude": query.iss_position.longitude, 
@@ -65,22 +99,14 @@ app.post("/location", function (req, res) {
       message: query.message
     }
   }
-  console.error("############Params JSON:", JSON.stringify(params, null, 2));
-  docClient.put(params, function(err, data) {
-    if(err) {
-      console.error("Unable to post item. Error JSON:", JSON.stringify(err, null, 2));
-      res.json({err});
-    }else{
-      res.json({success: 'Coordinates updated', url: req.url})
+  dynamodb.put(params, (error, result) => {
+    if (error) {
+      response.json({ statusCode: 500, error: error.message, url: request.url });
+    } else {
+      response.json({ statusCode: 200, url: request.url, body: JSON.stringify(params.Item) })
     }
   });
-  // res.json({
-  //   event: req.apiGateway.event, // to view all event data
-  //   query: query
-  // });
-  // res.json({ success: "get call succeed!", url: req.url });
 });
-
 
 app.listen(3000, function () {
   console.log("App started");
