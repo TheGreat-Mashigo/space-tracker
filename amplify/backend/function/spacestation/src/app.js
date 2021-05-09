@@ -32,6 +32,7 @@ function getId(){
 
 
 app.get("/location", function (request, response) {
+  const tableName = "locationtable1";
   let params = {
     TableName: tableName ||  process.env.STORAGE_DYNAMODB_NAME,
     limit: 100
@@ -82,6 +83,7 @@ app.get("/location", function (request, response) {
 // });
 
 app.post("/location", function (request, response) {
+  const tableName = "locationtable1";
   const timestamp = new Date().toISOString();
   const query = request.query;
   let params = {
