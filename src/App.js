@@ -53,8 +53,8 @@ function App() {
       this.location = JSON.parse(result.body);
     }).catch(err => {
       console.log(err);
-      console.log(apiData)
     });
+    console.log(apiData)
   }
 
   return (
