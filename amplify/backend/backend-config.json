@@ -31,7 +31,7 @@
     }
   },
   "storage": {
-    "locationStorage": {
+    "spacelocation": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }

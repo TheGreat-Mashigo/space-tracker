@@ -18,7 +18,31 @@
       "function": {
         "spacestation": {
           "deploymentBucketName": "amplify-spaceisstracker-dev-110007-deployment",
-          "s3Key": "amplify-builds/spacestation-517959733645756a5966-build.zip"
+          "s3Key": "amplify-builds/spacestation-42684936374f722f4e2f-build.zip"
+        }
+      }
+    }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-spaceisstracker-staging-165032-authRole",
+      "UnauthRoleArn": "arn:aws:iam::708306190967:role/amplify-spaceisstracker-staging-165032-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::708306190967:role/amplify-spaceisstracker-staging-165032-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-spaceisstracker-staging-165032-deployment",
+      "UnauthRoleName": "amplify-spaceisstracker-staging-165032-unauthRole",
+      "StackName": "amplify-spaceisstracker-staging-165032",
+      "StackId": "arn:aws:cloudformation:eu-central-1:708306190967:stack/amplify-spaceisstracker-staging-165032/ec6e5b30-b0d5-11eb-8d2c-029d146fede2",
+      "AmplifyAppId": "dnw4gihn7siak"
+    },
+    "categories": {
+      "auth": {
+        "spaceisstrackerdf94a67d": {}
+      },
+      "function": {
+        "spacestation": {
+          "deploymentBucketName": "amplify-spaceisstracker-staging-165032-deployment",
+          "s3Key": "amplify-builds/spacestation-42684936374f722f4e2f-build.zip"
         }
       }
     }

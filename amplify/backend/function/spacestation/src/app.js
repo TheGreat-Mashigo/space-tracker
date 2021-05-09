@@ -58,15 +58,16 @@ app.post("/location", function (req, res) {
       id: id,
       iss_position: 
         { 
-          "longitude": query.longitude, 
-          "latitude": query.latitude
+          "longitude": query.iss_position.longitude, 
+          "latitude": query.iss_position.latitude
         }, 	
-      timestamp: query.timestamp, 
+      timestamp: query.time, 
       message: query.message
     }
   }
   docClient.put(params, function(err, data) {
     if(err) {
+      console.error("Unable to post item. Error JSON:", JSON.stringify(err, null, 2));
       res.json({err});
     }else{
       res.json({success: 'Coordinates updated', url: req.url})
