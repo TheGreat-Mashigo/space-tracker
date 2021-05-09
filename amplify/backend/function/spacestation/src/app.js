@@ -33,7 +33,7 @@ function getId(){
 
 app.get("/location", function (request, response) {
   let params = {
-    TableName: tableName,
+    TableName: tableName ||  process.env.STORAGE_DYNAMODB_NAME,
     limit: 100
   }
   dynamodb.scan(params, (error, result) => {
@@ -83,6 +83,7 @@ app.get("/location", function (request, response) {
 
 app.post("/location", function (request, response) {
   const timestamp = new Date().toISOString();
+  const query = request.query;
   let params = {
     TableName: tableName || process.env.STORAGE_DYNAMODB_NAME,
     Item: {
@@ -101,6 +102,7 @@ app.post("/location", function (request, response) {
   }
   dynamodb.put(params, (error, result) => {
     if (error) {
+      console.error("############Params JSON:", JSON.stringify(error.message, null, 2));
       response.json({ statusCode: 500, error: error.message, url: request.url });
     } else {
       response.json({ statusCode: 200, url: request.url, body: JSON.stringify(params.Item) })
