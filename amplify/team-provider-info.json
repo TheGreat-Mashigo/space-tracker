@@ -18,7 +18,7 @@
       "function": {
         "spacestation": {
           "deploymentBucketName": "amplify-spaceisstracker-dev-110007-deployment",
-          "s3Key": "amplify-builds/spacestation-342b496d5467324a4859-build.zip"
+          "s3Key": "amplify-builds/spacestation-6a79423841524c686641-build.zip"
         }
       }
     }
