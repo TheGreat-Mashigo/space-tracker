@@ -2,8 +2,14 @@ import "./App.css";
 import Map from "./components/map";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Amplify from 'aws-amplify'
+import { API } from 'aws-amplify'
+import awsExports from './aws-exports'
+Amplify.configure(awsExports)
 
 // const CACHE = {};
+
+const notifyURL = "http://api.open-notify.org/iss-now.json";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -11,23 +17,41 @@ function App() {
   const [latitude, setLatitude] = useState(-47.2433);
 
   useEffect(() => {
+    const getLocation = async () => {
+
+      setLoading(true);
+      const res = await axios.get(notifyURL);
+      console.log("res ********", res);
+      if (res) {
+        const { longitude, latitude } = await res.data.iss_position;
+        console.log(" show res.data ::::::",res.data)
+        addLocations (res.data);
+        setLatitude(parseFloat(latitude));
+        setLongitude(parseFloat(longitude));
+        setLoading(false);
+      }
+    };
     getLocation();
   }, []);
 
-  const getLocation = async () => {
-    setLoading(true);
-    const res = await axios.get('http://api.open-notify.org/iss-now.json')
-    //  axios
-    //   .get("http://api.open-notify.org/iss-now.json")
-    //   .then((response) => console.log(response));
-    // .then(response => response.data.iss_position)
-    // const { longitude, latitude } = await response
-    const { longitude, latitude } = await res.data.iss_position
+  async function addLocations (response) {
+    let apiName = 'spacelocations'
+    let path = '/location';
+    const data = {
+      body : {
+        iss_position: {
+          longitude:response.iss_position.longitude,
+          latitude: response.iss_position.latitude
+        },
+        timestamp: response.timestamp,
+        message: response.message
+      }
+    }
+    console.log(data)
+    const apiData = await API.post(apiName, path, data);
+    console.log(apiData)
+  }
 
-    setLatitude(parseFloat(latitude));
-    setLongitude(parseFloat(longitude));
-    setLoading(false);
-  };
   return (
     <div className="App">
       <div className="iss-header">
@@ -36,7 +60,9 @@ function App() {
       {!loading ? (
         <Map center={{ lat: latitude, lng: longitude }} />
       ) : (
-        <h1>loading</h1>
+        <div className="iss-header">
+          <h1>loading...</h1>
+        </div>
       )}
     </div>
   );
