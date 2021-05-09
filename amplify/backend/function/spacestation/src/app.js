@@ -65,6 +65,7 @@ app.post("/location", function (req, res) {
       message: query.message
     }
   }
+  console.error("############Params JSON:", JSON.stringify(params, null, 2));
   docClient.put(params, function(err, data) {
     if(err) {
       console.error("Unable to post item. Error JSON:", JSON.stringify(err, null, 2));

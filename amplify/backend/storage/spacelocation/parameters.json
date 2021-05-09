@@ -1,5 +1,5 @@
 {
-    "tableName": "locationtable",
+    "tableName": "locationtable1",
     "partitionKeyName": "id",
     "partitionKeyType": "S"
 }
