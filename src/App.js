@@ -48,7 +48,12 @@ function App() {
       }
     }
     console.log(data)
-    const apiData = await API.post(apiName, path, data);
+    const apiData = await API.post(apiName, path, data)
+    .then(result => {
+      this.todo = JSON.parse(result.body);
+    }).catch(err => {
+      console.log(err);
+    });
     console.log(apiData)
   }
 
