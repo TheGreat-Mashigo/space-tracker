@@ -47,41 +47,6 @@ app.get("/location", function (request, response) {
 });
 
 
-// app.post("/location", function (req, res) {
-//   // Add your code here
-//   const query = req.query;
-//   console.log("req: ", query);
-//   console.log("res: ", res);
-//   const id = getId();
-//   var params = {
-//     TableName : process.env.STORAGE_DYNAMODB_NAME,
-//     Item: {
-//       id: id,
-//       iss_position: 
-//         { 
-//           "longitude": query.iss_position.longitude, 
-//           "latitude": query.iss_position.latitude
-//         }, 	
-//       timestamp: query.time, 
-//       message: query.message
-//     }
-//   }
-//   console.error("############Params JSON:", JSON.stringify(params, null, 2));
-//   dynamodb.put(params, function(err, data) {
-//     if(err) {
-//       console.error("Unable to post item. Error JSON:", JSON.stringify(err, null, 2));
-//       res.json({err});
-//     }else{
-//       res.json({success: 'Coordinates updated', url: req.url})
-//     }
-//   });
-//   // res.json({
-//   //   event: req.apiGateway.event, // to view all event data
-//   //   query: query
-//   // });
-//   // res.json({ success: "get call succeed!", url: req.url });
-// });
-
 app.post("/location", function (request, response) {
   const tableName = "locationtable1";
   const timestamp = new Date().toISOString();
