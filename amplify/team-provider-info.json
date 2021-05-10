@@ -19,5 +19,26 @@
         }
       }
     }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-spacestationtracker-staging-102101-authRole",
+      "UnauthRoleArn": "arn:aws:iam::708306190967:role/amplify-spacestationtracker-staging-102101-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::708306190967:role/amplify-spacestationtracker-staging-102101-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-spacestationtracker-staging-102101-deployment",
+      "UnauthRoleName": "amplify-spacestationtracker-staging-102101-unauthRole",
+      "StackName": "amplify-spacestationtracker-staging-102101",
+      "StackId": "arn:aws:cloudformation:us-east-1:708306190967:stack/amplify-spacestationtracker-staging-102101/aa1155b0-b168-11eb-a5ac-120290f41bcd",
+      "AmplifyAppId": "d1jleoyidd866p"
+    },
+    "categories": {
+      "function": {
+        "locationfunction": {
+          "deploymentBucketName": "amplify-spacestationtracker-staging-102101-deployment",
+          "s3Key": "amplify-builds/locationfunction-754e685866304c615068-build.zip"
+        }
+      }
+    }
   }
 }
