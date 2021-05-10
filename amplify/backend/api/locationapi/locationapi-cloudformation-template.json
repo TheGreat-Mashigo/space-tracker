@@ -8,15 +8,15 @@
         },
     
     
-          "functionspacestationName": {
+          "functionlocationfunctionName": {
             "Type": "String",
-            "Default": "functionspacestationName"
+            "Default": "functionlocationfunctionName"
           },
 
           
-          "functionspacestationArn": {
+          "functionlocationfunctionArn": {
             "Type": "String",
-            "Default": "functionspacestationArn"
+            "Default": "functionlocationfunctionArn"
           }
 
           
@@ -37,16 +37,16 @@
         
         
         
-      "spacelocations": {
+      "locationapi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "spacelocations",
+          "Name": "locationapi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "spacelocations"
+              "title": "locationapi"
             },
             "host": {
                 "Fn::Join": [
@@ -168,7 +168,7 @@
                             
                             {
 
-                                "Ref": "functionspacestationArn"
+                                "Ref": "functionlocationfunctionArn"
                             },
                             
                             "/invocations"
@@ -267,7 +267,7 @@
                           
                           {
 
-                            "Ref": "functionspacestationArn"
+                            "Ref": "functionlocationfunctionArn"
                           },
                           
                           "/invocations"
@@ -324,12 +324,12 @@
       
         
 
-        "functionspacestationPermissionspacelocations": {
+        "functionlocationfunctionPermissionlocationapi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionspacestationName"
+                        "Ref":  "functionlocationfunctionName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -348,7 +348,7 @@
                             },
                             ":",
                             {
-                                "Ref": "spacelocations"
+                                "Ref": "locationapi"
                             },
                             "/*/*/*"
                         ]
@@ -359,7 +359,7 @@
         
         
 
-      "DeploymentAPIGWspacelocations": {
+      "DeploymentAPIGWlocationapi": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -373,7 +373,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "spacelocations"
+            "Ref": "locationapi"
           }
         }
       }
@@ -381,15 +381,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "spacelocations"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "locationapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "spacelocations"
+          "Value": "locationapi"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "spacelocations"}
+          "Value": {"Ref": "locationapi"}
         }
     }
   }

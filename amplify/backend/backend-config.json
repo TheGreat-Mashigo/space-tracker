@@ -1,27 +1,19 @@
 {
-  "auth": {
-    "spaceisstrackerdf94a67d": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
   "function": {
-    "spacestation": {
+    "locationfunction": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "api": {
-    "spacelocations": {
+    "locationapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "spacestation",
+          "resourceName": "locationfunction",
           "attributes": [
             "Name",
             "Arn"
@@ -31,7 +23,7 @@
     }
   },
   "storage": {
-    "spacelocation": {
+    "locationstorage": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }

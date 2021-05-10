@@ -2,30 +2,30 @@
   "paths": [
     {
       "name": "/location",
-      "lambdaFunction": "spacestation",
+      "lambdaFunction": "locationfunction",
       "privacy": {
         "open": true
       },
       "policyResourceName": "/location"
     }
   ],
-  "resourceName": "spacelocations",
-  "apiName": "spacelocations",
+  "resourceName": "locationapi",
+  "apiName": "locationapi",
   "functionArns": [
     {
-      "lambdaFunction": "spacestation"
+      "lambdaFunction": "locationfunction"
     }
   ],
   "privacy": {
     "auth": 0,
     "unauth": 0,
-    "authRoleName": "amplify-spaceisstracker-dev-110007-authRole",
-    "unAuthRoleName": "amplify-spaceisstracker-dev-110007-unauthRole"
+    "authRoleName": "amplify-spacestationtracker-dev-74302-authRole",
+    "unAuthRoleName": "amplify-spacestationtracker-dev-74302-unauthRole"
   },
   "dependsOn": [
     {
       "category": "function",
-      "resourceName": "spacestation",
+      "resourceName": "locationfunction",
       "attributes": [
         "Name",
         "Arn"

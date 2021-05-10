@@ -52,9 +52,8 @@ function App() {
     .then(result => {
       this.location = JSON.parse(result.body);
     }).catch(err => {
-
-      console.log(err);
-      console.log(err.message);
+      console.error(err.response.data)
+      console.log(err.response);
     });
     // console.log(apiData)
   }

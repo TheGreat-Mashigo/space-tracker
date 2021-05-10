@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "spacestation",
+            "locationfunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "spacestation",
+                  "locationfunction",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "spaceisstrackerLambdaRole484b2bcd",
+            "spacestationtrackerLambdaRole3cd8a8d9",
             {
               "Fn::Join": [
                 "",
                 [
-                  "spaceisstrackerLambdaRole484b2bcd",
+                  "spacestationtrackerLambdaRole3cd8a8d9",
                   "-",
                   {
                     "Ref": "env"
