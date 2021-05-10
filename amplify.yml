@@ -6,15 +6,14 @@ applications:
           commands:
             - '# Execute Amplify CLI with the helper script'
             - amplifyPush --simple
-
   - frontend:
       phases:
         preBuild:
           commands:
             - ls -al
-            - node -v
             - npm ci
             - npm install --global npm@latest
+            - node -v
         build:
           commands: 
             - npm run-script build
