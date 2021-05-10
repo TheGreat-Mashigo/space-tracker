@@ -6,7 +6,8 @@ applications:
           commands:
             - ls -al
             - node -v
-            - npm install
+            - npm ci
+            - npm install --global npm@latest
         build:
           commands: 
             - npm run-script build
