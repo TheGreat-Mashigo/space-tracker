@@ -69,7 +69,6 @@ app.post("/location", function (request, response) {
   }
   dynamodb.put(params, (error, result) => {
     if (error) {
-      console.error("############Params JSON:", JSON.stringify(error.message, null, 2));
       response.json({ statusCode: 500, error: error.message, url: request.url });
     } else {
       response.json({ statusCode: 200, url: request.url, body: JSON.stringify(params.Item) })

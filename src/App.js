@@ -21,10 +21,8 @@ function App() {
 
       setLoading(true);
       const res = await axios.get(notifyURL);
-      console.log("res ********", res);
       if (res) {
         const { longitude, latitude } = await res.data.iss_position;
-        console.log(" show res.data ::::::",res.data)
         addLocations (res.data);
         setLatitude(parseFloat(latitude));
         setLongitude(parseFloat(longitude));
