@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Amplify from 'aws-amplify'
 import { API } from 'aws-amplify'
-import awsExports from './aws-exports'
-Amplify.configure(awsExports)
+import awsConfig from './aws-exports'
+Amplify.configure(awsConfig)
 
 // const CACHE = {};
 
