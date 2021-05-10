@@ -35,7 +35,7 @@ function App() {
   }, []);
 
   async function addLocations (response) {
-    let apiName = 'spacelocations'
+    let apiName = 'locationapi'
     let path = '/location';
     const data = {
       body : {
@@ -52,7 +52,7 @@ function App() {
     .then(result => {
       this.location = JSON.parse(result.body);
     }).catch(err => {
-      console.error(err.response.data)
+      console.log(err);
       console.log(err.response);
     });
     // console.log(apiData)
