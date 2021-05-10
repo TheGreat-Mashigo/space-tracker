@@ -5,6 +5,7 @@ applications:
         preBuild:
           commands:
             - ls
+            - node -v
             - npm install
         build:
           commands: 
