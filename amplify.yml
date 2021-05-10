@@ -4,6 +4,7 @@ applications:
       phases:
         preBuild:
           commands:
+            - ls
             - npm ci
         build:
           commands: 
